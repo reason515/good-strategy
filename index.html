@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>战略不是目标，是解决一个问题 · 好战略，坏战略</title>
+<meta name="description" content="理查德·鲁梅尔特《好战略，坏战略》的内核：坏战略的四种形态、诊断-指导方针-连贯性行动，以及攀岩者口中的「症结」。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="战略不是目标，是解决一个问题">
+<meta property="og:description" content="坏战略防不胜防。好战略只有一个内核：诊断、指导方针、连贯性行动。">
+<meta name="theme-color" content="#f4efe6">
+<style>
+  :root{
+    --paper:#f4efe6;
+    --paper-deep:#ece4d6;
+    --ink:#171310;
+    --ink-soft:#3d3630;
+    --muted:#8b8173;
+    --vermilion:#a8322a;
+    --vermilion-soft:rgba(168,50,42,.55);
+    --rule:#d8cdbb;
+    --serif:"Source Han Serif SC","Noto Serif SC","Songti SC","STSong","SimSun",serif;
+    --sans:"Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    --latin:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --gutter:clamp(20px,6vw,120px);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:clamp(15px,1.05vw + 10px,19px);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  /* 纸张颗粒 + 轻微透印 */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:90;pointer-events:none;
+    opacity:.55;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='220' height='220' filter='url(%23n)' opacity='0.30'/></svg>");
+  }
+  body::after{
+    content:"";
+    position:fixed;inset:0;z-index:89;pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 0%,rgba(255,255,255,.55),transparent 60%),
+               radial-gradient(100% 80% at 50% 100%,rgba(214,199,175,.35),transparent 62%);
+  }
+
+  /* 阅读进度：一道朱红细线 */
+  .progress{
+    position:fixed;top:0;left:0;height:2px;width:0;
+    background:var(--vermilion);z-index:100;
+    box-shadow:0 0 12px rgba(168,50,42,.45);
+  }
+
+  .screen{
+    position:relative;
+    min-height:100svh;
+    padding:clamp(64px,11vh,140px) var(--gutter);
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .screen + .screen{border-top:1px solid var(--rule)}
+
+  /* 巨型页码水印 */
+  .num{
+    position:absolute;
+    right:clamp(10px,3.5vw,58px);
+    top:clamp(18px,6vh,84px);
+    font-family:var(--latin);
+    font-size:clamp(64px,11vw,190px);
+    line-height:.8;
+    letter-spacing:-.04em;
+    color:rgba(23,19,16,.055);
+    user-select:none;
+    pointer-events:none;
+  }
+
+  /* 页边竖排标签 */
+  .rail{
+    position:absolute;left:clamp(6px,1.8vw,26px);top:50%;
+    transform:translateY(-50%);
+    writing-mode:vertical-rl;
+    font-family:var(--sans);
+    font-size:clamp(9px,.72vw,11px);
+    letter-spacing:.5em;
+    color:var(--muted);
+    text-transform:uppercase;
+    user-select:none;
+  }
+
+  .kicker{
+    font-family:var(--sans);
+    font-size:clamp(11px,.9vw,13px);
+    letter-spacing:.34em;
+    color:var(--vermilion);
+    text-transform:uppercase;
+    margin:0 0 clamp(18px,3vh,34px);
+  }
+  .kicker .sep{opacity:.45;margin:0 .7em}
+
+  h1,h2,h3{margin:0;font-weight:700;line-height:1.02;letter-spacing:-.035em}
+  h1{
+    font-size:clamp(46px,9.2vw,148px);
+    line-height:.96;
+    letter-spacing:-.05em;
+  }
+  h1 .light{font-weight:300;color:var(--ink-soft)}
+  h2{
+    font-size:clamp(30px,5.4vw,84px);
+    letter-spacing:-.042em;
+    line-height:1.1;
+  }
+  h3{font-size:clamp(19px,1.9vw,26px);letter-spacing:-.02em;line-height:1.35}
+
+  .lede{
+    max-width:34em;
+    margin:clamp(26px,4.5vh,52px) 0 0;
+    font-size:clamp(16px,1.5vw,23px);
+    line-height:2;
+    text-wrap:pretty;
+    color:var(--ink-soft);
+  }
+  .body-copy{max-width:33em;margin:clamp(20px,3.5vh,38px) 0 0;color:var(--ink-soft)}
+  .body-copy p{margin:0 0 1.1em}
+  .body-copy p:last-child{margin-bottom:0}
+
+  /* 手写式朱红划线 */
+  .swash{position:relative;display:inline-block;white-space:nowrap}
+  .swash svg{
+    position:absolute;left:-2%;right:-2%;bottom:-.1em;
+    width:104%;height:.34em;overflow:visible;pointer-events:none;
+  }
+  .swash path{
+    fill:none;stroke:var(--vermilion);stroke-width:2.4;
+    stroke-linecap:round;
+    stroke-dasharray:220;stroke-dashoffset:220;
+  }
+  .is-in .swash path{animation:draw 1s .55s cubic-bezier(.22,.8,.24,1) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  /* 朱红圈画 */
+  .circled{position:relative;display:inline-block}
+  .circled svg{
+    position:absolute;left:-6%;top:-14%;width:112%;height:128%;
+    overflow:visible;pointer-events:none;
+  }
+  .circled path{
+    fill:none;stroke:var(--vermilion);stroke-width:2;opacity:.85;
+    stroke-dasharray:520;stroke-dashoffset:520;
+  }
+  .is-in .circled path{animation:draw 1.5s .7s ease forwards}
+  .circled--big svg{top:-5%;height:112%}
+  .circled--big path{stroke-width:2.6}
+
+  mark{
+    background:linear-gradient(transparent 62%,rgba(168,50,42,.16) 0);
+    color:inherit;padding:0 .08em;
+  }
+
+  /* 四张坏战略卡片 */
+  .plague{
+    list-style:none;padding:0;margin:clamp(32px,5vh,64px) 0 0;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+  }
+  .plague li{
+    background:var(--paper);
+    padding:clamp(20px,2.6vw,34px);
+    position:relative;
+  }
+  .plague .idx{
+    font-family:var(--latin);
+    font-size:12px;letter-spacing:.2em;color:var(--vermilion);
+    display:block;margin-bottom:.9em;
+  }
+  .plague strong{display:block;font-size:clamp(17px,1.6vw,22px);letter-spacing:-.01em;margin-bottom:.5em}
+  .plague p{margin:0;font-size:clamp(13px,1.1vw,15px);line-height:1.85;color:var(--muted)}
+
+  /* 内核三段式 */
+  .kernel{
+    margin:clamp(34px,6vh,70px) 0 0;
+    display:grid;gap:0;
+    border-top:1px solid var(--ink);
+  }
+  .kernel > div{
+    display:grid;
+    grid-template-columns:minmax(0,clamp(140px,16.5vw,240px)) minmax(0,1fr);
+    gap:clamp(18px,4vw,60px);
+    align-items:baseline;
+    padding:clamp(20px,3.2vh,34px) 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .kernel .zh{
+    font-size:clamp(24px,3.6vw,52px);
+    font-weight:700;letter-spacing:-.03em;line-height:1.1;
+    white-space:nowrap;
+  }
+  .kernel .en{
+    font-family:var(--latin);font-style:italic;
+    font-size:clamp(12px,1vw,14px);color:var(--muted);
+    display:block;letter-spacing:.02em;margin-top:.35em;font-weight:400;
+  }
+  .kernel p{margin:0;color:var(--ink-soft);font-size:clamp(14px,1.2vw,17px);line-height:1.9}
+  .kernel .arw{color:var(--vermilion);font-family:var(--latin)}
+
+  /* 大字标语 */
+  .shout{
+    margin:clamp(30px,5vh,60px) 0 0;
+    font-size:clamp(26px,4.4vw,66px);
+    line-height:1.28;
+    letter-spacing:-.04em;
+    font-weight:700;
+  }
+  .shout em{font-style:normal;color:var(--vermilion)}
+
+  /* 引用 */
+  .pull{
+    margin:clamp(32px,5vh,64px) 0 0;
+    padding-left:clamp(18px,3vw,40px);
+    border-left:2px solid var(--vermilion);
+    max-width:30em;
+    font-size:clamp(17px,1.7vw,26px);
+    line-height:1.85;
+    color:var(--ink);
+  }
+  .pull cite{
+    display:block;margin-top:.9em;
+    font-family:var(--sans);font-style:normal;
+    font-size:clamp(11px,.85vw,12px);letter-spacing:.24em;
+    color:var(--muted);text-transform:uppercase;
+  }
+
+  /* 九大力量源 */
+  .forces{
+    list-style:none;padding:0;margin:clamp(32px,5vh,62px) 0 0;
+    display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:clamp(22px,3vw,40px) clamp(24px,4vw,64px);
+  }
+  .forces li{border-top:1px solid var(--ink);padding-top:.85em}
+  .forces .zh{font-size:clamp(18px,1.9vw,26px);font-weight:700;letter-spacing:-.02em}
+  .forces .en{
+    display:block;font-family:var(--latin);font-style:italic;
+    font-size:11px;letter-spacing:.16em;color:var(--vermilion);
+    margin:.5em 0 .7em;text-transform:uppercase;
+  }
+  .forces p{margin:0;font-size:clamp(13px,1.05vw,15px);line-height:1.85;color:var(--muted)}
+
+  /* 案例 */
+  .cases{margin:clamp(32px,5vh,60px) 0 0;display:grid;gap:clamp(26px,4vh,44px)}
+  .case{
+    display:grid;grid-template-columns:minmax(0,7em) minmax(0,1fr);
+    gap:clamp(14px,3vw,44px);align-items:start;
+    padding-top:1.1em;border-top:1px solid var(--rule);
+  }
+  .case .co{
+    font-family:var(--sans);font-size:clamp(11px,.9vw,13px);
+    letter-spacing:.28em;color:var(--vermilion);text-transform:uppercase;
+    padding-top:.4em;
+  }
+  .case p{margin:0;font-size:clamp(15px,1.4vw,21px);line-height:1.8;letter-spacing:-.01em}
+  .case p b{font-weight:700}
+
+  /* 症结：大字留白 */
+  .crux{
+    align-items:center;text-align:center;
+  }
+  .crux h2{
+    font-size:clamp(34px,7.6vw,124px);
+    line-height:1.16;
+    letter-spacing:-.055em;
+  }
+  .crux .lede{margin-left:auto;margin-right:auto;text-align:left}
+  .crux-note{
+    margin:clamp(34px,6vh,64px) auto 0;max-width:26em;text-align:left;
+    font-size:clamp(14px,1.25vw,18px);line-height:2;color:var(--ink-soft);
+  }
+  .crit{
+    margin:clamp(26px,4vh,44px) auto 0;
+    display:flex;gap:clamp(20px,4vw,54px);justify-content:center;flex-wrap:wrap;
+    font-family:var(--sans);font-size:clamp(11px,.95vw,13px);
+    letter-spacing:.3em;color:var(--muted);text-transform:uppercase;
+  }
+  .crit span::before{content:"—";color:var(--vermilion);margin-right:.6em}
+
+  /* 收束 */
+  .coda{min-height:100svh;justify-content:center}
+  .coda blockquote{
+    margin:0;max-width:26em;
+    font-size:clamp(26px,4.6vw,72px);
+    line-height:1.42;letter-spacing:-.04em;font-weight:700;
+  }
+  .coda .sign{
+    margin:clamp(30px,5vh,52px) 0 0;
+    font-family:var(--sans);font-size:clamp(11px,.85vw,12px);
+    letter-spacing:.3em;color:var(--vermilion);text-transform:uppercase;
+  }
+  .colophon{
+    margin-top:clamp(48px,9vh,110px);
+    padding-top:1.4em;border-top:1px solid var(--rule);
+    font-family:var(--sans);
+    font-size:clamp(12px,.95vw,14px);
+    line-height:2;letter-spacing:.04em;color:var(--muted);
+    max-width:46em;
+  }
+
+  /* 首屏 */
+  .hero h1{margin-top:clamp(8px,2vh,20px)}
+  .hero .meta{
+    font-family:var(--sans);font-size:clamp(11px,.85vw,12.5px);
+    letter-spacing:.26em;color:var(--muted);text-transform:uppercase;
+  }
+  .hero .lede{max-width:30em}
+  .scroll-hint{
+    position:absolute;left:var(--gutter);bottom:clamp(28px,6vh,56px);
+    display:flex;align-items:center;gap:.9em;
+    font-family:var(--sans);font-size:clamp(10px,.8vw,11.5px);
+    letter-spacing:.34em;color:var(--muted);text-transform:uppercase;
+  }
+  .scroll-hint::after{
+    content:"";width:clamp(40px,7vw,90px);height:1px;background:var(--muted);
+    transform-origin:left;animation:trace 2.6s ease-in-out infinite;
+  }
+  @keyframes trace{0%,100%{transform:scaleX(.25)}50%{transform:scaleX(1)}}
+
+  /* 揭示动画 */
+  .reveal{opacity:0;transform:translateY(20px)}
+  .reveal.is-in{
+    opacity:1;transform:none;
+    transition:opacity .95s cubic-bezier(.22,.8,.24,1),transform .95s cubic-bezier(.22,.8,.24,1);
+    transition-delay:var(--d,0ms);
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none}
+    .swash path,.circled path{stroke-dashoffset:0;animation:none!important}
+    .scroll-hint::after{animation:none}
+  }
+
+  @media (max-width:900px){
+    .forces{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+
+  @media (max-width:720px){
+    .rail{display:none}
+    .forces{grid-template-columns:1fr}
+    h1{font-size:clamp(34px,10.4vw,64px);line-height:1.16;letter-spacing:-.04em}
+    h2{line-height:1.22}
+    .lede{line-height:1.95;font-size:15px}
+    .case{grid-template-columns:1fr;gap:.5em}
+    .kernel > div{grid-template-columns:1fr;gap:.6em}
+    .kernel .zh{white-space:normal}
+    .pull{padding-left:16px}
+    body{line-height:1.8}
+  }
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<main>
+
+  <!-- 01 首屏 -->
+  <section class="screen hero">
+    <span class="num" aria-hidden="true">01</span>
+    <span class="rail" aria-hidden="true">Good Strategy / Bad Strategy</span>
+    <p class="kicker reveal">理查德·鲁梅尔特<span class="sep">/</span>好战略，坏战略</p>
+    <h1 class="reveal" style="--d:120ms">战略不是<span class="light">目标</span><br>是<em style="font-style:normal;color:var(--vermilion)">解决一个问题</em></h1>
+    <p class="lede reveal" style="--d:340ms">
+      一句被反复误读的话，和一套能落地的内核。<br>
+      读完它，你会开始怀疑自己听过的大部分战略。
+    </p>
+    <div class="scroll-hint" aria-hidden="true">向下</div>
+  </section>
+
+  <!-- 02 坏战略 -->
+  <section class="screen">
+    <span class="num" aria-hidden="true">02</span>
+    <p class="kicker reveal">坏战略防不胜防</p>
+    <h2 class="reveal" style="--d:100ms">大多数被称作战略的东西，<br>并<span class="swash">不是战略<svg viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 10C40 3 96 2 138 5c26 2 52 5 79 3"/></svg></span>。</h2>
+    <p class="lede reveal" style="--d:280ms">
+      它们看起来很像战略，却从不承诺任何具体的东西。
+    </p>
+
+    <ul class="plague">
+      <li class="reveal" style="--d:380ms">
+        <span class="idx">壹</span>
+        <strong>空话</strong>
+        <p>用浮夸深奥的字眼包装，读完不知道究竟要做什么。语言在这里的作用不是描述，是遮掩。</p>
+      </li>
+      <li class="reveal" style="--d:460ms">
+        <span class="idx">贰</span>
+        <strong>不能直面挑战</strong>
+        <p>没有指出真正的问题是什么，自然也不会给出答案。问题被绕开，动作便只是在忙碌。</p>
+      </li>
+      <li class="reveal" style="--d:540ms">
+        <span class="idx">叁</span>
+        <strong>错把目标当战略</strong>
+        <p>「三年增长二十个百分点」是愿望，不是路径。目标陈述了终点，却对如何抵达一言不发。</p>
+      </li>
+      <li class="reveal" style="--d:620ms">
+        <span class="idx">肆</span>
+        <strong>糟糕的战略目标</strong>
+        <p>目标彼此打架，资源被撕成碎片。什么都想要，最终哪一处都没有足够的力气。</p>
+      </li>
+    </ul>
+
+    <div class="pull reveal" style="--d:720ms">
+      坏战略往往逃避令人头疼的细节和焦点问题，忽视抉择和集中性的力量，试图同时照顾到多种冲突的诉求。
+      <cite>Richard Rumelt</cite>
+    </div>
+  </section>
+
+  <!-- 03 内核 -->
+  <section class="screen">
+    <span class="num" aria-hidden="true">03</span>
+    <p class="kicker reveal">内核</p>
+    <h2 class="reveal" style="--d:100ms">好战略只有一个内核。<br>三块，缺一不可。</h2>
+    <p class="lede reveal" style="--d:260ms">
+      它不是一份模板，而是一条顺序：先看清，再选边，再让所有动作咬合在一起。
+    </p>
+
+    <div class="kernel">
+      <div class="reveal" style="--d:380ms">
+        <div class="zh">诊断<span class="en">Diagnosis</span></div>
+        <p>把复杂的局面简化成一个可解释的判断，指出真正的障碍在哪里。诊断若错，后面越努力，错得越远。</p>
+      </div>
+      <div class="reveal" style="--d:480ms">
+        <div class="zh">指导方针<span class="en">Guiding Policy</span></div>
+        <p>为对付这个障碍而给出的整体方向，以及随之而来的、明确的取舍。</p>
+      </div>
+      <div class="reveal" style="--d:580ms">
+        <div class="zh">连贯性行动<span class="en">Coherent Actions</span></div>
+        <p>为落实方针而采取的、彼此协调的动作。它们互相支撑，而不是各自为战。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 诊断 -->
+  <section class="screen">
+    <span class="num" aria-hidden="true">04</span>
+    <p class="kicker reveal">第一步 · 诊断</p>
+    <h2 class="reveal" style="--d:100ms">诊断不是罗列问题，<br>是让混乱<span class="swash">变得可解释<svg viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9C48 2 104 3 148 6c22 1 44 3 69 2"/></svg></span>。</h2>
+    <div class="body-copy reveal" style="--d:260ms">
+      <p>好的诊断会把一大堆看似无关的现象，压缩成一两个关键判断，并指出哪里才是真正的卡点。</p>
+      <p>它必须回答一个冷酷的问题：<mark>这里最难对付的东西，究竟是什么？</mark>如果答不上来，所谓的战略就还没有开始。</p>
+    </div>
+    <p class="shout reveal" style="--d:420ms">诊断错了，<br><em>后面的努力都是加速</em>。</p>
+  </section>
+
+  <!-- 05 指导方针 -->
+  <section class="screen">
+    <span class="num" aria-hidden="true">05</span>
+    <p class="kicker reveal">第二步 · 指导方针</p>
+    <h2 class="reveal" style="--d:100ms">指导方针的力气，<br>全在「<span class="circled">不做什么<svg viewBox="0 0 220 90" preserveAspectRatio="none" aria-hidden="true"><path d="M14 46C22 14 92 6 168 12c26 2 42 10 40 26-3 22-56 40-116 42-40 1-72-8-78-24-4-11 4-20 22-26"/></svg></span>」。</h2>
+    <div class="body-copy reveal" style="--d:280ms">
+      <p>它要给出应对障碍的整体方向，同时把大量看起来也不错、却会分散力量的选择，明确排除在外。</p>
+      <p>没有排他的方针，就等于没有方针——组织会继续在每一件好事上同时用力。</p>
+    </div>
+    <p class="shout reveal" style="--d:440ms">战略的硬度<br>= 你<em>拒绝了多少好机会</em>。</p>
+    <div class="pull reveal" style="--d:560ms">
+      策略除了详述组织要做些什么，也要诉说组织不要做什么。
+      <cite>论好策略与坏策略</cite>
+    </div>
+  </section>
+
+  <!-- 06 连贯性行动 -->
+  <section class="screen">
+    <span class="num" aria-hidden="true">06</span>
+    <p class="kicker reveal">第三步 · 连贯性行动</p>
+    <h2 class="reveal" style="--d:100ms">行动不是清单，<br>是一条必须<span class="swash">咬合的链<svg viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 8C42 3 88 2 132 5c30 2 58 4 85 2"/></svg></span>。</h2>
+    <div class="body-copy reveal" style="--d:260ms">
+      <p>各项动作互相支撑、指向同一处，才会产生力量。各自为战的一堆举措，只是加班。</p>
+      <p>优势常常不是某一点的锐利，而是一个环环相扣的系统：<mark>最弱的一环，决定整体能走多远</mark>。所以要动的，是那一环。</p>
+    </div>
+    <div class="cases">
+      <div class="case reveal" style="--d:400ms">
+        <div class="co">Walmart</div>
+        <p>它的优势不在某一环特别强，而在<b>每一环都为下一环让路</b>：选址、物流、库存、补货连成一条链，对手无法靠单点突破。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 力量源 -->
+  <section class="screen">
+    <span class="num" aria-hidden="true">07</span>
+    <p class="kicker reveal">战略的力量之源</p>
+    <h2 class="reveal" style="--d:100ms">力量从哪里来</h2>
+    <ul class="forces">
+      <li class="reveal" style="--d:220ms"><span class="zh">杠杆作用</span><span class="en">Leverage</span><p>找到支点，用有限的资源撬动不成比例的结果。</p></li>
+      <li class="reveal" style="--d:280ms"><span class="zh">近似目标</span><span class="en">Proximate Objectives</span><p>把遥远的愿景切成近处可攻的山头，让团队够得着。</p></li>
+      <li class="reveal" style="--d:340ms"><span class="zh">环环相扣</span><span class="en">Chain-Link Systems</span><p>把优势做成系统，而不是押注一个单点。</p></li>
+      <li class="reveal" style="--d:400ms"><span class="zh">设计思维</span><span class="en">Design</span><p>配置资源与关系，而不是在现成选项里挑一个。</p></li>
+      <li class="reveal" style="--d:460ms"><span class="zh">聚焦</span><span class="en">Focus</span><p>集中，是战略唯一诚实的姿势。分散从来没有产生过力量。</p></li>
+      <li class="reveal" style="--d:520ms"><span class="zh">有效增长</span><span class="en">Growth</span><p>增长必须强化优势；稀释优势的增长，是把未来卖掉。</p></li>
+      <li class="reveal" style="--d:580ms"><span class="zh">竞争优势</span><span class="en">Advantage</span><p>建立隔离机制，让别人难以复制，而不只是暂时领先。</p></li>
+      <li class="reveal" style="--d:640ms"><span class="zh">动态视角</span><span class="en">Dynamics</span><p>局面在变，昨天的优势会成为今天的包袱。</p></li>
+      <li class="reveal" style="--d:700ms"><span class="zh">利用惯性</span><span class="en">Inertia</span><p>既有的路径会替你决定下一步——这既是约束，也是可借的力。</p></li>
+    </ul>
+  </section>
+
+  <!-- 08 案例 -->
+  <section class="screen">
+    <span class="num" aria-hidden="true">08</span>
+    <p class="kicker reveal">三次换挡</p>
+    <h2 class="reveal" style="--d:100ms">同一个内核，<br>三种用法</h2>
+    <div class="cases">
+      <div class="case reveal" style="--d:260ms">
+        <div class="co">Apple · 1997</div>
+        <p>产品线被一刀切成四格。<b>聚焦本身就是战略</b>——不是设计出了新东西，而是先把不该做的全部停掉。</p>
+      </div>
+      <div class="case reveal" style="--d:400ms">
+        <div class="co">Walmart</div>
+        <p>把供应链做成一个系统，每一环都为下一环让路。<b>优势是链条，不是天才</b>。</p>
+      </div>
+      <div class="case reveal" style="--d:540ms">
+        <div class="co">NVIDIA</div>
+        <p>GPU 被重新诊断为「通用并行计算」。<b>诊断一换，优势的位置就全变了</b>。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 症结 -->
+  <section class="screen crux">
+    <span class="num" aria-hidden="true">09</span>
+    <p class="kicker reveal" style="text-align:center">症结 · Crux</p>
+    <h2 class="reveal" style="--d:120ms">攀岩者的规矩：<br>不解决那一步，<br><span class="circled circled--big">你上不去<svg viewBox="0 0 340 160" preserveAspectRatio="none" aria-hidden="true"><path d="M30 84C40 30 130 12 236 20c40 3 62 14 60 34-3 30-84 56-170 58-58 1-104-12-112-38-6-18 6-32 26-40"/></svg></span>。</h2>
+    <p class="crux-note reveal" style="--d:340ms">
+      一条线路只有一个最难的动作。整条线的成败，往往就压在那一步上。
+      战略家最先找的不是目标，而是那个<mark>非常关键、同时似乎能够解决</mark>的挑战。
+      鲁梅尔特把它叫作症结。
+    </p>
+    <div class="crit reveal" style="--d:480ms">
+      <span>关键</span><span>可解</span><span>值得压上全部力量</span>
+    </div>
+  </section>
+
+  <!-- 10 收束 -->
+  <section class="screen coda">
+    <span class="num" aria-hidden="true">10</span>
+    <blockquote class="reveal">
+      战略的核心基本相同：<br>
+      发现关键问题，设计出一个合理的方案，<br>
+      并集中力量采取行动处理这些关键问题。
+    </blockquote>
+    <p class="sign reveal" style="--d:300ms">Richard Rumelt · Good Strategy / Bad Strategy</p>
+    <div class="colophon reveal" style="--d:440ms">
+      内容提炼自《好战略，坏战略》（2011）与《好战略，坏战略2》，理查德·鲁梅尔特 著，蒋宗强 译，中信出版社。<br>
+      仅供学习与交流，版权归原作者及出版方所有。
+    </div>
+  </section>
+
+</main>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // 逐段揭示
+    var items = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-in'); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) {
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+      items.forEach(function (el) { io.observe(el); });
+    }
+
+    // 阅读进度
+    var bar = document.getElementById('progress');
+    var ticking = false;
+    function update() {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+    }, { passive: true });
+    update();
+  })();
+</script>
+</body>
+</html>
